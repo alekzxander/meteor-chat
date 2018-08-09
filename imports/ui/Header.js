@@ -7,6 +7,7 @@ const Header = (props) => {
                 <button style={{ visibility: 'hidden' }}>No one</button>
             </p>
             <h1>Datachat</h1>
+            <h4>#{props.channels}</h4>
             <p>
                 <button className="btn-head" onClick={() => props.toggleClass()}>
                     <img src="images/menu.png" alt="" />

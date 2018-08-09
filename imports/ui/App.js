@@ -4,10 +4,9 @@ import Footer from './Footer';
 import Chat from './Chat';
 import UserDisconnect from './userDisconnect';
 import { withTracker } from 'meteor/react-meteor-data';
-// import { Messages } from '../api/messages';
+import { Messages } from '../api/messages';
 import { Meteor } from 'meteor/meteor';
-import higher from './higher';
-let channels = 'general';
+// import higher from './higher';
 class App extends Component {
     constructor(props) {
         super(props);
@@ -44,13 +43,16 @@ class App extends Component {
         })
     }
     handleChannel(chan) {
-        higher.changeChannels(chan);
+        this.onToggleClass();
+        this.setState({
+            channels: chan
+        });
     }
     deleteMessage(id) {
         Meteor.call('messages.delete', id)
     }
     onSendMessage() {
-        Meteor.call('messages.insert', this.state.messageText, channels);
+        Meteor.call('messages.insert', this.state.messageText, this.state.channels);
         this.setState({
             messageText: ""
         })
@@ -62,11 +64,16 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.props.general);
         return (
             <div>
-                < Header toggleClass={() => this.onToggleClass()} drop={this.state.drop} handleChannel={(chan) => this.handleChannel(chan)} />
+                < Header toggleClass={() => this.onToggleClass()}
+                    drop={this.state.drop}
+                    handleChannel={(chan) => this.handleChannel(chan)}
+                    channels={this.state.channels}
+                />
                 {
-                    Meteor.user() ? < Chat messages={this.props.messages}
+                    Meteor.user() ? < Chat messages={this.state.channels === 'general' ? this.props.general : this.props.simplon}
                         updateMessage={(id, text) => this.onUpdateMessage(id, text)}
                         deleteMessage={(id) => this.deleteMessage(id)}
                     /> : < UserDisconnect />
@@ -83,6 +90,9 @@ class App extends Component {
     }
 };
 export default withTracker(() => {
-    Meteor.subscribe('messages');
-    return higher.changeChannels()
+    Meteor.subscribe('messages', 'channels');
+    return {
+        general: Messages.find({ channel: 'general' }).fetch(),
+        simplon: Messages.find({ channel: 'simplon' }).fetch()
+    }
 })(App);

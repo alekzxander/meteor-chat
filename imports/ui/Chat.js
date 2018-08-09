@@ -14,14 +14,7 @@ export default class Chat extends Component {
 
     onScroll() {
         const message = document.querySelector('.chat');
-        let shouldScroll = message.scrollTop;
-        function scrollToBottom() {
-            message.scrollTop = message.scrollHeight;
-        }
-        shouldScroll = message.scrollTop + message.scrollHeight === message.clientHeight;
-        if (!shouldScroll) {
-            scrollToBottom();
-        }
+        message.scrollTop = message.scrollHeight;
     }
     moreMessage() {
         const message = document.querySelector('.chat');

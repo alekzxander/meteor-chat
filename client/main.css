@@ -2,15 +2,16 @@
 
 body {
   font-family: sans-serif;
-  background: #2F3A4B;
+  background: #ffff;
   font-family: 'Lato', sans-serif;
   max-width: 460px;
+  height: 77vh;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  background: #4B586C;
+  background: linear-gradient(to right, #93278f,#00a99d);
   z-index: 3;
 }
 .header ul {
@@ -18,6 +19,12 @@ body {
 }
 .header h3 {
   color : white;
+}
+.header h4 {
+  position: absolute;
+  color:white;
+  left: 41%;
+  top: 5%;
 }
 .header button {
   background: transparent;
@@ -41,12 +48,12 @@ body {
 }
 .dropdown {
   opacity: 0;
-  background: #4B586C;
+  background: linear-gradient(to right, #93278f,#00a99d);
   z-index: 2;
   position: absolute;
   padding: 20px;
   width : 90%;
-  top: 10%;
+  top: 11%;
   display: flex;
   transform :translateY(-223px);
   -webkit-transition: .5s ease-in-out;
@@ -60,6 +67,12 @@ body {
 }
 .dropdown ul {
     padding: 0px;
+    margin-left: 160px;
+    margin-top: -40px;
+}
+.dropdown ul button {
+  color : white;
+  margin-bottom: 5px;
 }
 .dropdown.dropdown-up {
   opacity: 1;
@@ -71,14 +84,18 @@ body {
 }
 .sendMessage {
   height: 55px;
-  background: white;
+  background: #F2F2F2;
   display: flex;
   margin-top: 20px;
+  border-top: 1px solid #C7C7C7;
 }
+
 .sendMessage input {
   width: 85%;
   height: 100%;
   padding-left: 10px;
+  background: #F2F2F2;
+  border: none;
 }
 .sendMessage input:focus {
   outline: none;
@@ -87,11 +104,10 @@ body {
   height: 30px;
 }
 .btn-footer {
-  background: #4B586C;
+  background:#00a99d;
   padding : 5px 20px 5px 20px;
   height: 61px;
   border: none;
-  border-top: 1px solid  #2F3A4B;
 }
 .btn-footer:focus {
   outline: none;
@@ -100,12 +116,14 @@ body {
 .messages {
   color : #3A3B3B;
   padding: 20px;
-  background: white;
+  background: #EBEBEB;
   margin-top: 30px;
   border-radius: 6px;
   width: 65%;
   margin-left: 44px;
   position: relative;
+    box-shadow: 0 8px 6px -6px #C0C0C0;
+    word-wrap: break-word;
 }
 .message-guess {
   margin-left: -44px !important;
@@ -115,7 +133,7 @@ body {
   top: -42%;
   left: 2%;
   font-size: 12px;
-  color: white;
+  color: #414141;
   width: 100%;
 }
 .text-center{
@@ -132,7 +150,7 @@ body {
   top: 92%;
   left: 72%;
   font-size: 10px;
-  color: white;
+  color: #414141;
 }
 .block-left {
   margin-left: 10px !important; 
