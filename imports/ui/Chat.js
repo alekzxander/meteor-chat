@@ -8,14 +8,11 @@ export default class Chat extends Component {
             countMessage: 10
         }
     }
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.onScroll();
     }
 
-    onScroll() {
-        const message = document.querySelector('.chat');
-        message.scrollTop = message.scrollHeight;
-    }
+
     moreMessage() {
         const message = document.querySelector('.chat');
         this.setState({

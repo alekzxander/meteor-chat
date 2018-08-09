@@ -20,6 +20,10 @@ class App extends Component {
         this.onSendMessage = this.onSendMessage.bind(this);
         this.onUpdateMessage = this.onUpdateMessage.bind(this);
     }
+    componentDidMount = () => {
+        const message = document.querySelector('.chat');
+    }
+
     onMessageText(e) {
         const text = e.target.value;
         this.setState({
@@ -33,6 +37,11 @@ class App extends Component {
             newMessage: false,
             idMessage: id
         })
+    }
+    onScroll() {
+        if (message) {
+            message.scrollTop = message.scrollHeight;
+        }
     }
     updateMessage() {
         Meteor.call('messages.update', this.state.messageText, this.state.idMessage)
@@ -64,7 +73,8 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props.general);
+        const test = document.querySelector('.chat');
+        console.log(test)
         return (
             <div>
                 < Header toggleClass={() => this.onToggleClass()}
