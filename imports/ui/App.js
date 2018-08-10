@@ -21,9 +21,15 @@ class App extends Component {
         this.onUpdateMessage = this.onUpdateMessage.bind(this);
     }
     componentDidMount = () => {
-        const message = document.querySelector('.chat');
+        this.onScroll();
     }
 
+    onScroll() {
+        const message = document.querySelector('.chat');
+        if (message) {
+            message.scrollTop = message.scrollHeight;
+        }
+    }
     onMessageText(e) {
         const text = e.target.value;
         this.setState({
@@ -38,25 +44,23 @@ class App extends Component {
             idMessage: id
         })
     }
-    onScroll() {
-        if (message) {
-            message.scrollTop = message.scrollHeight;
-        }
-    }
+
     updateMessage() {
         const { messageText, idMessage } = this.state;
-        Meteor.call('messages.update', this.state.messageText, this.state.idMessage)
+        Meteor.call('messages.update', messageText, idMessage)
         this.setState({
             newMessage: true,
             messageText: "",
             idMessage: ""
         })
+        this.onScroll();
     }
     handleChannel(chan) {
         this.onToggleClass();
         this.setState({
             channels: chan
         });
+        this.onScroll();
     }
     deleteMessage(id) {
         Meteor.call('messages.delete', id)
@@ -67,6 +71,7 @@ class App extends Component {
         this.setState({
             messageText: ""
         })
+        this.onScroll();
     }
     onToggleClass() {
         const { drop } = this.state;
