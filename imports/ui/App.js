@@ -44,6 +44,7 @@ class App extends Component {
         }
     }
     updateMessage() {
+        const { messageText, idMessage } = this.state;
         Meteor.call('messages.update', this.state.messageText, this.state.idMessage)
         this.setState({
             newMessage: true,
@@ -61,38 +62,40 @@ class App extends Component {
         Meteor.call('messages.delete', id)
     }
     onSendMessage() {
-        Meteor.call('messages.insert', this.state.messageText, this.state.channels);
+        const { messageText, channels } = this.state;
+        Meteor.call('messages.insert', messageText, channels);
         this.setState({
             messageText: ""
         })
     }
     onToggleClass() {
+        const { drop } = this.state;
         this.setState({
-            drop: !this.state.drop,
+            drop: !drop,
         })
     }
 
     render() {
-        const test = document.querySelector('.chat');
-        console.log(test)
+        const { drop, channels, idMessage, messageText, newMessage } = this.state;
         return (
             <div>
                 < Header toggleClass={() => this.onToggleClass()}
-                    drop={this.state.drop}
+                    drop={drop}
                     handleChannel={(chan) => this.handleChannel(chan)}
-                    channels={this.state.channels}
+                    channels={channels}
                 />
                 {
-                    Meteor.user() ? < Chat messages={this.state.channels === 'general' ? this.props.general : this.props.simplon}
+                    Meteor.user() ? < Chat messages={channels === 'general' ? this.props.general : this.props.simplon}
                         updateMessage={(id, text) => this.onUpdateMessage(id, text)}
                         deleteMessage={(id) => this.deleteMessage(id)}
+                        messageUp={idMessage}
                     /> : < UserDisconnect />
                 }
                 < Footer
                     messText={(e) => this.onMessageText(e)}
                     sendMessage={this.onSendMessage}
-                    text={this.state.messageText}
-                    newMessage={this.state.newMessage}
+                    text={messageText}
+                    newMessage={newMessage}
                     updateMessage={() => this.updateMessage()}
                 />
             </div>
