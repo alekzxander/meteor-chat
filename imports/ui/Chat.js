@@ -24,6 +24,7 @@ export default class Chat extends Component {
 
         message.scrollToBottom = message.scrollHeight;
     }
+
     render() {
         const { messages, messageUp } = this.props;
         const { countMessage } = this.state;
@@ -37,7 +38,6 @@ export default class Chat extends Component {
                 </p>
                 {
                     messages.map((mess, i) => {
-                        this.onScroll();
                         if (i > lastElement - countMessage) {
                             if (Meteor.userId() === mess.owner) {
                                 return (
@@ -63,6 +63,11 @@ export default class Chat extends Component {
                             )
                         }
                     })
+
+
+                }
+                {
+                    this.onScroll()
                 }
             </div >
         )
