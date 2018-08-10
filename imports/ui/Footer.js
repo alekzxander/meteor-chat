@@ -11,13 +11,14 @@ class Footer extends React.Component {
         }
     }
     render() {
+        const { newMessage, text } = this.props;
         return (<div className="sendMessage">
             <input type="text" placeholder="Send a message ..."
                 onChange={(e) => this.props.messText(e)}
                 onKeyPress={(e) => this.onSubmitMessage(e)}
-                value={this.props.text}
+                value={text}
             />
-            <button className="btn-footer" onClick={() => this.props.newMessage ? this.props.sendMessage() : this.props.updateMessage()}>
+            <button className="btn-footer" onClick={() => newMessage ? this.props.sendMessage() : this.props.updateMessage()}>
                 <img src="images/send.svg" alt="" />
             </button>
         </div>);

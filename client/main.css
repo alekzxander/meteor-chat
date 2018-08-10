@@ -106,7 +106,7 @@ body {
 .btn-footer {
   background:#00a99d;
   padding : 5px 20px 5px 20px;
-  height: 61px;
+  height: 60px;
   border: none;
 }
 .btn-footer:focus {
@@ -124,6 +124,10 @@ body {
   position: relative;
     box-shadow: 0 8px 6px -6px #C0C0C0;
     word-wrap: break-word;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
 }
 .message-guess {
   margin-left: -44px !important;
@@ -179,4 +183,7 @@ body {
   right: -2%;
   top: -8%;
   position: absolute;
+}
+.messageUp {
+  transform: scale(1.1)
 }

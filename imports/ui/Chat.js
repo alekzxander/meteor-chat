@@ -8,7 +8,7 @@ export default class Chat extends Component {
             countMessage: 10
         }
     }
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.onScroll();
     }
 
@@ -25,7 +25,8 @@ export default class Chat extends Component {
         message.scrollToBottom = message.scrollHeight;
     }
     render() {
-        const { messages } = this.props;
+        const { messages, messageUp } = this.props;
+        const { countMessage } = this.state;
         const lastElement = messages.indexOf(messages[messages.length - 1]);
         return (
             <div className="chat">
@@ -35,11 +36,12 @@ export default class Chat extends Component {
                 </button>
                 </p>
                 {
-                    this.props.messages.map((mess, i) => {
-                        if (i > lastElement - this.state.countMessage) {
+                    messages.map((mess, i) => {
+                        this.onScroll();
+                        if (i > lastElement - countMessage) {
                             if (Meteor.userId() === mess.owner) {
                                 return (
-                                    <div key={mess._id} className={'messages ' + (Meteor.userId() === mess.owner ? 'block-right' : 'block-left')}>
+                                    <div key={mess._id} className={'messages ' + (Meteor.userId() === mess.owner ? 'block-right ' : 'block-left ') + (messageUp === mess._id ? 'messageUp' : '')}>
                                         <figure>
                                             <img src="/images/delete.png" className="delete" onClick={() => this.props.deleteMessage(mess._id)} alt="" />
                                         </figure>
@@ -60,12 +62,7 @@ export default class Chat extends Component {
                                 </div>
                             )
                         }
-
-
                     })
-                }
-                {
-                    this.onScroll()
                 }
             </div >
         )
